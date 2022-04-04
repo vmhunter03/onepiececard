@@ -22,7 +22,8 @@ function App() {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
-
+    setChoiceOne(null)
+    setChoiceTwo(null)
     setCards(shuffledCards);
     setTurns(0);
   };
@@ -52,7 +53,6 @@ function App() {
     }
   }, [choiceOne, choiceTwo]);
 
-  console.log(cards);
 
   //reset choices & increase turn
   const resetTurn = () => {
@@ -61,6 +61,10 @@ function App() {
     setTurns((prevTurns) => prevTurns + 1);
     setDisabled(false);
   };
+  // start a bew game automatically
+  useEffect(() => {
+    shuffledCards()
+  }, [])
   return (
     <div className="App">
       <h1>Magic Match</h1>
@@ -76,6 +80,7 @@ function App() {
           />
         ))}
       </div>
+      <p>Turns: {turns}</p>
     </div>
   );
 }
